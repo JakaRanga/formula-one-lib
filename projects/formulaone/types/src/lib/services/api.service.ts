@@ -15,12 +15,15 @@ export class ApiService {
 
   constructor(private http: HttpClient, @Inject('env') private env: Environment) { }
 
-  get<T>(url: string, requestOptions: RequestOptions, params?: HttpParams): Observable<Entity<T>> {
-    url = RequestOptionsResolver.resolve(url, requestOptions);
+  get<T>(url: string, requestOptions?: RequestOptions, params?: HttpParams): Observable<Entity<T>> {
+    if (requestOptions) {
+      url = RequestOptionsResolver.resolve(url, requestOptions);
+    }
 
-    if (params == undefined)
+    if (params == undefined) {
       params = new HttpParams();
-
+    }
+    
     const obs = from(this.http.get<ApiEntity<Entity<T>>>(`${this.env.apiUrl}/${url}`, {
       params: params
     })).pipe(

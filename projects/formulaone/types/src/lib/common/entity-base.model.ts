@@ -1,6 +1,8 @@
 export enum EntityBaseType {
-    RACETABLE = 'RaceTable',
-    DRIVERTABLE = 'DriverTable',
-    CONSTRUCTORTABLE = 'ConstructorTable',
-    CIRCUITTABLE = 'CircuitTable',
+    RACE_TABLE = 'RaceTable',
+    DRIVER_TABLE = 'DriverTable',
+    CONSTRUCTOR_TABLE = 'ConstructorTable',
+    CIRCUIT_TABLE = 'CircuitTable',
+    STANDINGS_TABLE = 'StandingsTable',
+    STATUS_TABLE = 'StatusTable'
 }
