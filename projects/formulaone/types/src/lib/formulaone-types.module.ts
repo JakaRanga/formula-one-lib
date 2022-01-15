@@ -1,6 +1,12 @@
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import { JsonInterceptor } from './services/json.interceptor';
 
-@NgModule({})
+@NgModule({
+    imports: [
+        HttpClientModule
+    ]
+})
 export class FormulaOneTypesModule {
 
   public static forRoot(environment: any): ModuleWithProviders<FormulaOneTypesModule> {
@@ -11,7 +17,8 @@ export class FormulaOneTypesModule {
             {
                 provide: 'env',
                 useValue: environment
-            }
+            },
+            { provide: HTTP_INTERCEPTORS, useClass: JsonInterceptor, multi: true }
         ]
     };
 }

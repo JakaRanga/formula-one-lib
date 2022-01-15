@@ -3,7 +3,8 @@ export interface RequestOptions {
     round?:         number,
     driverId?:      string,
     constructorId?: string,
-    circuitid?:     string,
+    circuitId?:     string,
     lapnumber?:     number,
-    pitstopnumber?: number
+    pitstopnumber?: number,
+    page?:           number
 }

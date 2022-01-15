@@ -1,4 +1,6 @@
+import { HttpParams } from "@angular/common/http";
 import { RequestOptions } from "../models/request-options.model";
+import { MAX_PAGE_SIZE } from "./constants";
 
 export abstract class RequestOptionsResolver {
 
@@ -12,6 +14,12 @@ export abstract class RequestOptionsResolver {
         })
 
         return url;
+    }
+
+    static resolveParams(params: HttpParams, requestOptions: RequestOptions): HttpParams {
+        return params
+            .append('limit', `${MAX_PAGE_SIZE}`)
+            .append('offset', `${MAX_PAGE_SIZE * ((requestOptions.page ?? 1) - 1) }`);
     }
 
 }

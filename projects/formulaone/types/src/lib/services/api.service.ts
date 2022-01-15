@@ -6,7 +6,7 @@ import { ApiEntity } from '../models/api-entity.model';
 import { Entity } from '../models/entity.model';
 import { Environment } from '../models/environment.model';
 import { RequestOptions } from '../models/request-options.model';
-import { RequestOptionsResolver } from '../utlis/request-options.resolver';
+import { RequestOptionsResolver } from '../utils/request-options.resolver';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +16,15 @@ export class ApiService {
   constructor(private http: HttpClient, @Inject('env') private env: Environment) { }
 
   get<T>(url: string, requestOptions?: RequestOptions, params?: HttpParams): Observable<Entity<T>> {
-    if (requestOptions) {
-      url = RequestOptionsResolver.resolve(url, requestOptions);
-    }
-
     if (params == undefined) {
       params = new HttpParams();
     }
-    
+
+    if (requestOptions) {
+      url = RequestOptionsResolver.resolve(url, requestOptions);
+      params = RequestOptionsResolver.resolveParams(params, requestOptions);
+    }
+
     const obs = from(this.http.get<ApiEntity<Entity<T>>>(`${this.env.apiUrl}/${url}`, {
       params: params
     })).pipe(
